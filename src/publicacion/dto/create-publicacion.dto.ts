@@ -6,5 +6,8 @@ export class CreatePublicacionDto {
     @IsString()
     @MinLength(1)
     zona: string;
+    @IsString()
+    @MinLength(1)
+    descripcion:string;
 
 }

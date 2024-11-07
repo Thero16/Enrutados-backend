@@ -26,14 +26,19 @@ export class PublicacionService {
     });
   }
   
-  
-
   async findOne(id: string): Promise<Publicacion> {
-    return await this.publicacionRepository.findOne({ 
-      where: { id }, 
-      relations: ['usuario'] // Asegúrate de cargar la relación 'usuario'
+    const publicacion = await this.publicacionRepository.findOne({
+      where: { id },
+      relations: ['usuario'], // Esto es importante para cargar la relación
     });
+
+    if (!publicacion) {
+      throw new NotFoundException(`Publicación con ID ${id} no encontrada`);
+    }
+
+    return publicacion;
   }
+  
 
   async update(id: string, updatePublicacionDto: UpdatePublicacionDto) {
     const publicacion = await this.publicacionRepository.preload({id: id, ...updatePublicacionDto})

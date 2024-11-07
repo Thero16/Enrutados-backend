@@ -14,6 +14,9 @@ export class Publicacion {
     })
     zona: string
 
+    @Column('text', {nullable:true})
+    descripcion: string
+
 
     @ManyToOne(() => Usuario, (usuario) => usuario.publicaciones)
     usuario: Usuario;
